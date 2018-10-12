@@ -101,8 +101,8 @@ namespace QQ.Framework.Utils
                             var key1 = Encoding.UTF8.GetString(reader.ReadBytes(reader.ReadByte())); //Key1
                             reader.BeReadChar();
                             var key2 = Encoding.UTF8.GetString(reader.ReadBytes(reader.ReadByte())); //Key2
-                            result.Snippets.Add(new TextSnippet("", MessageType.RedBag, ("RedId", redId),
-                                ("Key1", key1), ("Key2", key2)));
+                            result.Snippets.Add(new TextSnippet("", MessageType.RedBag, new Tuple<string, object>("RedId", redId),
+                                new Tuple<string, object>("Key1", key1), new Tuple<string, object>("Key2", key2)));
                             break;
                         }
                     }
@@ -165,14 +165,13 @@ namespace QQ.Framework.Utils
             _data[name] = value;
         }
 
-        public TextSnippet(string message = "", MessageType type = MessageType.Normal,
-            params (string name, object value)[] data)
+        public TextSnippet(string message = "", MessageType type = MessageType.Normal, params Tuple<string, object>[] data)
         {
             Content = message;
             Type = type;
             foreach (var valueTuple in data)
             {
-                Set(valueTuple.name, valueTuple.value);
+                Set(valueTuple.Item1, valueTuple.Item2);
             }
         }
 

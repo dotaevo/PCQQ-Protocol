@@ -191,7 +191,8 @@ namespace QQ.Framework.Utils
         /// <returns></returns>
         public static int GetInt(string s, int defaultValue)
         {
-            return int.TryParse(s, out var value) ? value : defaultValue;
+            int value;
+            return int.TryParse(s, out value) ? value : defaultValue;
         }
 
         /// <summary>
